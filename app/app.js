@@ -22,7 +22,7 @@ app.controller("TodoCtrl", function($scope) {
       dueDate: "12/5/17",
       assignedTo: "Matt",
       urgency: "high",
-      dependencies: ["sunshine", "clippers", "hat", "water", "headphones"]
+      dependencies: "groundhog, grass, holes, shed, funnel"
     },
     {
       id: 1,
@@ -31,7 +31,7 @@ app.controller("TodoCtrl", function($scope) {
       dueDate: "12/5/17",
       assignedTo: "Matt",
       urgency: "low",
-      dependencies: ["food", "cat", "hat", "water", "firehose"]
+      dependencies: "groundhog, grass, holes, shed, funnel"
     },
     {
       id: 2,
@@ -40,10 +40,10 @@ app.controller("TodoCtrl", function($scope) {
       dueDate: "12/5/17",
       assignedTo: "Matt",
       urgency: "low",
-      dependencies: ["groundhog", "grass", "holes", "shed", "funnel"]
+      dependencies: "groundhog, grass, holes, shed, funnel"
     }
 
-  ]
+  ];
 
   $scope.newItem = function() {
     $scope.showListView = false;
@@ -52,6 +52,14 @@ app.controller("TodoCtrl", function($scope) {
   $scope.allItem = function() {
     $scope.showListView = true;
     console.log("you clicked allItem");
+  };
+
+  $scope.addNewItem = function() {
+    $scope.newTask.isCompleted = false;
+    $scope.newTask.id =$scope.items.length;
+    console.log("you added a new Item", $scope.newTask);
+    $scope.items.push($scope.newTask);
+    $scope.newTask = "";
   };
 
 
