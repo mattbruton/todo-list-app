@@ -51,6 +51,33 @@
         
         <div class="col-xs-12" ng-show="!showListView"> 
           <h1>New Todo</h1>
+          <form>
+
+            <div class="form-group">
+              <label>Task Description</label>
+              <input type="text" class="form-control" placeholder="some important task" ng-model="newTask.task"></input>
+            </div>
+
+            <div class="form-group">
+              <label>Due Date</label>
+              <input type="text" class="form-control" placeholder="Yesterday" ng-model="newTask.dueDate"></input>
+            </div>
+
+            <div class="form-group">
+              <label>Who is doing this?!</label>
+              <input type="text" class="form-control" placeholder="your mom" ng-model="newTask.assignedTo"></input>
+            </div>
+
+            <div class="form-group">
+              <label>Urgency</label>
+              <input type="text" class="form-control" placeholder="low" ng-model="newTask.urgency"></input>
+            </div>
+
+            <div class="form-group">
+              <label>Dependencies</label>
+              <input type="text" class="form-control" placeholder="stuff" ng-model="newTask.dependencies"></input>
+            </div>
+          </form>
         </div>
 
       </div>
