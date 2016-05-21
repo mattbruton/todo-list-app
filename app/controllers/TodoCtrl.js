@@ -1,3 +1,5 @@
+"use strict";
+
 app.controller("TodoCtrl", function($scope) {
   $scope.welcome = "hello";
 
