@@ -8,7 +8,6 @@ app.controller("NavCtrl", function($scope) {
 
 app.controller("TodoCtrl", function($scope) {
   $scope.welcome = "hello";
-
 });
 
 console.log("hello");
