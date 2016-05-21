@@ -1,11 +1,6 @@
 "use strict";
 
-app.controller("TodoCtrl", function($scope) {
-  $scope.welcome = "hello";
-
-  $scope.showListView = true;
-
-  $scope.newTask = {};
+app.controller("ItemListCtrl", function($scope) {
 
   $scope.items = [
 
@@ -38,22 +33,5 @@ app.controller("TodoCtrl", function($scope) {
     }
 
   ];
-
-  $scope.newItem = function() {
-    $scope.showListView = false;
-    console.log("you clicked newItem");
-  };
-  $scope.allItem = function() {
-    $scope.showListView = true;
-    console.log("you clicked allItem");
-  };
-
-  $scope.addNewItem = function() {
-    $scope.newTask.isCompleted = false;
-    $scope.newTask.id =$scope.items.length;
-    console.log("you added a new Item", $scope.newTask);
-    $scope.items.push($scope.newTask);
-    $scope.newTask = "";
-  };
 
 });
