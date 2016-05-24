@@ -1,37 +1,17 @@
 "use strict";
 
-app.controller("ItemListCtrl", function($scope) {
+app.controller("ItemListCtrl", function($scope,$http) {
 
-  $scope.items = [
+  $scope.items = [];
 
-    {
-      id: 0,
-      task: "feed the dog",
-      isCompleted: false,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "high",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    },
-    {
-      id: 1,
-      task: "feed the cat",
-      isCompleted: true,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "low",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    },
-    {
-      id: 2,
-      task: "feed the whistlepig",
-      isCompleted: false,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "low",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    }
-
-  ];
+  $http.get("https://nss-matt-todo-app.firebaseio.com/items.json")
+    .success(function(itemObject) {
+      var itemCollection = itemObject;
+      Object.keys(itemCollection).forEach(function(key) {
+        itemCollection[key].id = key;
+        $scope.items.push(itemCollection[key]);
+      })
+    });
+    
 
 });

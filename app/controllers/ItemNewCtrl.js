@@ -1,46 +1,33 @@
 "use strict";
 
-app.controller("ItemNewCtrl", function($scope) {
-  $scope.newTask = {};
+app.controller("ItemNewCtrl", function($scope, $http, $location) {
+  $scope.newTask = {
+    assignedTo: "",
+    dependencies: "",
+    dueDate: "",
+    isCompleted: false,
+    task: "",
+    urgency: ""
+  };
 
-  $scope.items = [
-
-    {
-      id: 0,
-      task: "feed the dog",
-      isCompleted: false,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "high",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    },
-    {
-      id: 1,
-      task: "feed the cat",
-      isCompleted: true,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "low",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    },
-    {
-      id: 2,
-      task: "feed the whistlepig",
-      isCompleted: false,
-      dueDate: "12/5/17",
-      assignedTo: "Matt",
-      urgency: "low",
-      dependencies: "groundhog, grass, holes, shed, funnel"
-    }
-
-  ];
+  $scope.items = [];
 
   $scope.addNewItem = function() {
-    $scope.newTask.isCompleted = false;
-    $scope.newTask.id =$scope.items.length;
-    console.log("you added a new Item", $scope.newTask);
-    $scope.items.push($scope.newTask);
-    $scope.newTask = "";
+
+    $http.post("https://nss-matt-todo-app.firebaseio.com/items.json",
+    JSON.stringify({
+      assignedTo: $scope.newTask.assignedTo,
+      dependencies: $scope.newTask.dependencies,
+      dueDate: $scope.newTask.dueDate,
+      isCompleted: false,
+      task: $scope.newTask.task,
+      urgency: $scope.newTask.urgency
+    })
+  )
+    .success(function(response) {
+      $location.url("/items/list");
+    });
+    
   };
 
 });
