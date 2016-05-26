@@ -1,6 +1,8 @@
 "use strict";
 
 app.controller("ItemEditCtrl", function($scope, $location, $routeParams, itemStorage) {
+    $scope.title = "Edit Item";
+    $scope.submitButtonText = "Update";
     $scope.newTask = {};
 
 
