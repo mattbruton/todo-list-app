@@ -1,6 +1,6 @@
 "use strict";
 
-app.controller("ItemListCtrl", function($scope, $http, $location, itemStorage) {
+app.controller("ItemListCtrl", function($scope, $location, itemStorage) {
     $scope.items = [];
 
     itemStorage.getItemList().then(function(itemCollection) {

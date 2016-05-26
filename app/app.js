@@ -1,6 +1,7 @@
 "use strict";
 
-var app = angular.module('TodoApp', ["ngRoute"]);
+var app = angular.module('TodoApp', ["ngRoute"])
+.constant("firebaseURL", "https://nss-matt-todo-app.firebaseio.com/");
 
 app.config(function($routeProvider) {
   $routeProvider.
