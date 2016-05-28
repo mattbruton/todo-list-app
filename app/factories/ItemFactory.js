@@ -1,5 +1,5 @@
 'use strict';
-app.factory("itemStorage", function($q, $http,firebaseURL) {
+app.factory("itemStorage", function($q, $http, firebaseURL, AuthFactory) {
 
     var getItemList = function() {
         let items = [];
@@ -30,6 +30,7 @@ app.factory("itemStorage", function($q, $http,firebaseURL) {
     };
 
     var postNewItem = function(newItem) {
+        let user = AuthFactory.getUser();
         return $q(function(resolve, reject) {
             $http.post(
                     `${firebaseURL}items.json`,
@@ -40,7 +41,8 @@ app.factory("itemStorage", function($q, $http,firebaseURL) {
                         isCompleted: newItem.isCompleted,
                         location: newItem.location,
                         task: newItem.task,
-                        urgency: newItem.urgency
+                        urgency: newItem.urgency,
+                        uid: user.uid
                     })
                 )
                 .success(
@@ -68,7 +70,30 @@ app.factory("itemStorage", function($q, $http,firebaseURL) {
      var updateItem = function(itemId, newItem){
         return $q(function(resolve, reject) {
             $http.put(
-                firebaseURL + "items/" + itemId + ".json",
+                `${firebaseURL}items/${itemId}.json`,
+                JSON.stringify({
+                    assignedTo: newItem.assignedTo,
+                    dependencies: newItem.dependencies,
+                    dueDate: newItem.dueDate,
+                    isCompleted: newItem.isCompleted,
+                    location: newItem.location,
+                    task: newItem.task,
+                    urgency: newItem.urgency
+                })
+            )
+            .success(
+                function(objectFromFirebase) {
+                    resolve(objectFromFirebase);
+                }
+            );
+        });
+    };
+
+
+    var updateCompletedStatus = function(newItem){
+        return $q(function(resolve, reject) {
+            $http.put(
+                `${firebaseURL}items/${newItem.id}.json`,
                 JSON.stringify({
                     assignedTo: newItem.assignedTo,
                     dependencies: newItem.dependencies,
@@ -88,6 +113,7 @@ app.factory("itemStorage", function($q, $http,firebaseURL) {
     };
 
     return {
+        updateCompletedStatus: updateCompletedStatus,
         getItemList: getItemList,
         deleteItem: deleteItem,
         postNewItem: postNewItem,
